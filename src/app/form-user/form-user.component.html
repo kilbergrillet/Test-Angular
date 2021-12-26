@@ -1,0 +1,94 @@
+<form [formGroup]="userForm" class="block-form">
+
+    <mat-form-field appearance="outline">
+        <mat-label>DNI</mat-label>
+        <input formControlName="dni" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('dni')">Debe ingresar minimo 7 caracteres y maximo 8</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Apellido</mat-label>
+        <input formControlName="lastName" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('lastName')">Debe ingresar minimo 2 caracteres y maximo 15</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="name" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('name')">Debe ingresar minimo 2 caracteres y maximo 15</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('email')">Direccion de correo debe ser valida</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Celular</mat-label>
+        <input formControlName="cellPhone" matInput placeholder="ej - 911 22 33 444 67">
+        <mat-hint *ngIf="formValidation('cellPhone')">Números de Celular debe ser valida</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input formControlName="telephone" matInput placeholder="ej - ">
+        <mat-hint *ngIf="formValidation('telephone')">Números de telefono debe ser valida</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Provincia</mat-label>
+        <input type="text" formControlName="provinces" (input)="autocomplete($event,'provinces')" matInput>
+        <div *ngIf="windowsProvinces" class="auto-complete-custom">
+            <span *ngFor="let option of provinces" (click)="optionProvinces(option)">
+                {{option.nombre}}
+            </span>
+        </div>
+        <mat-hint *ngIf="formValidation('provinces')">Campo obligatorio</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Ciudad</mat-label>
+        <input type="text" formControlName="municipality" (input)="autocomplete($event,'municipality')" matInput>
+        <div *ngIf="windowsMunicipality" class="auto-complete-custom">
+            <span *ngFor="let option of municipality" (click)="optionMunicipality(option)">
+                {{option.nombre}}
+            </span>
+        </div>
+        <mat-hint *ngIf="formValidation('municipality')">Campo obligatorio</mat-hint>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Domicilio</mat-label>
+        <input type="text" formControlName="domicile" matInput>
+        <mat-hint *ngIf="formValidation('domicile')">Campo obligatorio</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input formControlName="date" (input)="selectDate($event)" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker (closed)="selectDate($event)" #picker></mat-datepicker>
+        <mat-hint *ngIf="formValidation('date')">Debes ser mayor de 18 años</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input formControlName="user" (input)="verifyUser($event)" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="validateUser">Usuario ya registrado</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input formControlName="password" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('password')">
+            Minimo 8 caracteres,
+            Maximo 15,
+            Al menos una letra mayúscula,
+            Al menos una letra minucula,
+            Al menos un dígito,
+            No espacios en blanco
+        </mat-hint>
+    </mat-form-field>
+</form>

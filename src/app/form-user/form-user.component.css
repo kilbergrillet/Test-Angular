@@ -1,0 +1,29 @@
+.block-form{
+    display: grid;
+    width: 60%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.auto-complete-custom{
+    display: grid;
+    position: absolute;
+    background: white;
+    z-index: 100;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.auto-complete-custom >span {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.auto-complete-custom >span:hover {
+   background-color: #e0e0e0;
+}
