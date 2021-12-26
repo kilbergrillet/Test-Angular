@@ -16,12 +16,15 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { FormVehicleComponent } from './form-vehicle/form-vehicle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormUserComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    FormVehicleComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

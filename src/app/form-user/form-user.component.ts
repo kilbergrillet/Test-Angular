@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { GeorefService } from '../services/georef.service';
 import { Georef } from '../interface/types'
 import { MercantilService } from '../services/mercantil.service';
+import { RootDataService } from '../services/root-data.service';
 
 @Component({
   selector: 'app-form-user',
@@ -41,7 +42,8 @@ export class FormUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private geoirefService: GeorefService,
-    private mercantilService: MercantilService
+    private mercantilService: MercantilService,
+    private rootDataService: RootDataService
   ) {
   }
 
@@ -67,7 +69,6 @@ export class FormUserComponent implements OnInit {
       this.saveAllmunicipality = response.municipios;
       this.municipality = this.saveAllmunicipality;
     });
-
   }
 
   optionMunicipality(element: any): void {
@@ -116,7 +117,6 @@ export class FormUserComponent implements OnInit {
     }
   }
 
-
   selectDate(event: any): void {
     let dateSelect: any = this.userForm.get('date').value;
     let currentDate: any = new Date();
@@ -128,6 +128,14 @@ export class FormUserComponent implements OnInit {
       this.userForm.get('date').setErrors(null);
     } else {
       this.userForm.get('date').setErrors({ 'incorrect': true });
+    }
+  }
+
+  onSubmit(): void {
+    if (this.userForm.invalid) {
+      return;
+    } else {
+      this.rootDataService.saveDataUser(this.userForm.value);
     }
   }
 
