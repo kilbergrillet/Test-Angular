@@ -1,0 +1,32 @@
+.block-p {
+    width: 60%;
+    margin: auto;
+}
+
+.block-p > div {
+    display: grid;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.block-p > div > span {
+    padding: 10px 0px;
+}
+
+.edit{
+    color: blue;
+    font-size: 16px;
+    font-weight: 400;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+
+.title{
+    margin: auto;
+}
+
+.btn-margin{
+    margin-top: 20px;
+}

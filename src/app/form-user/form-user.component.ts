@@ -4,6 +4,7 @@ import { GeorefService } from '../services/georef.service';
 import { Georef } from '../interface/types'
 import { MercantilService } from '../services/mercantil.service';
 import { RootDataService } from '../services/root-data.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-user',
@@ -13,22 +14,7 @@ import { RootDataService } from '../services/root-data.service';
 export class FormUserComponent implements OnInit {
 
   @Output('closed') closedStream: EventEmitter<void> | undefined;
-
-  userForm: any = this.formBuilder.group({
-    dni: ['', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
-    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
-    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
-    email: ['', [Validators.required, Validators.email]],
-    cellPhone: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-    telephone: ['', [Validators.required, Validators.pattern("^[0-9]*$")]],
-    provinces: ['', Validators.required],
-    municipality: ['', Validators.required],
-    domicile: ['', Validators.required],
-    date: ['', Validators.required],
-    user: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-    password: ['', [Validators.required, Validators.pattern(/(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}/)]],
-  });
-
+  userForm: any;
   controlAutocomplete = new FormControl();
   provinces: Georef[] = [];
   municipality: Georef[] = [];
@@ -38,17 +24,39 @@ export class FormUserComponent implements OnInit {
   windowsProvinces: boolean = false;
   windowsMunicipality: boolean = false;
   validateUser: boolean = false;
+  dataSave: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private geoirefService: GeorefService,
     private mercantilService: MercantilService,
-    private rootDataService: RootDataService
+    private rootDataService: RootDataService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
   }
 
   ngOnInit(): void {
+    this.dataSave = this.rootDataService.getDataUser();
+    this.setValues();
     this.callProvinces();
+  }
+
+  setValues(): void {
+    this.userForm = this.formBuilder.group({
+      dni: [this.dataSave.dni ? this.dataSave.dni : '', [Validators.required, Validators.minLength(7), Validators.maxLength(8)]],
+      lastName: [this.dataSave.lastName ? this.dataSave.lastName : '', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
+      name: [this.dataSave.name ? this.dataSave.name : '', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
+      email: [this.dataSave.email ? this.dataSave.email : '', [Validators.required, Validators.email]],
+      cellPhone: [this.dataSave.cellPhone ? this.dataSave.cellPhone : '', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      telephone: [this.dataSave.telephone ? this.dataSave.telephone : '', [Validators.required, Validators.pattern("^[0-9]*$")]],
+      provinces: [this.dataSave.provinces ? this.dataSave.provinces : '', Validators.required],
+      municipality: [this.dataSave.municipality ? this.dataSave.municipality : '', Validators.required],
+      domicile: [this.dataSave.domicile ? this.dataSave.domicile : '', Validators.required],
+      date: [this.dataSave.date ? this.dataSave.date : '', Validators.required],
+      user: [this.dataSave.user ? this.dataSave.user : '', [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      password: [this.dataSave.password ? this.dataSave.password : '', [Validators.required, Validators.pattern(/(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}/)]],
+    });
   }
 
   formValidation(input: string): any {
@@ -122,7 +130,7 @@ export class FormUserComponent implements OnInit {
     let currentDate: any = new Date();
     let msDay = 60 * 60 * 24 * 1000;
     let x = Math.floor((dateSelect - currentDate) / msDay);
-    let calculatedAge = x / 360;
+    let calculatedAge = x / 365;
 
     if (Math.abs(calculatedAge) > 18) {
       this.userForm.get('date').setErrors(null);
@@ -136,6 +144,7 @@ export class FormUserComponent implements OnInit {
       return;
     } else {
       this.rootDataService.saveDataUser(this.userForm.value);
+      this.router.navigate([`/formVehicle`], { relativeTo: this.route });
     }
   }
 

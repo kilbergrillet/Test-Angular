@@ -1,0 +1,34 @@
+<div class="block-p">
+    <div>
+        <h2 class="title">Datos personales</h2>
+
+        <span>DNI: {{datailData.user.dni}}</span>
+        <span>Apellido: {{datailData.user.lastName}}</span>
+        <span>Nombre: {{datailData.user.name}}</span>
+        <span>Email: {{datailData.user.email}}</span>
+        <span>Numero de Celular: {{datailData.user.cellPhone}}</span>
+        <span>Numero de telefono: {{datailData.user.telephone}}</span>
+        <span>Provincia: {{datailData.user.provinces}}</span>
+        <span>Municipalidad: {{datailData.user.municipality}}</span>
+        <span>Domicilio: {{datailData.user.domicile}}</span>
+        <span>Fecha: {{datailData.user.date}}</span>
+        <span>Usuario: {{datailData.user.user}}</span>
+        <span>Contraseña: {{datailData.user.password}}</span>
+
+        <a routerLink="/formUser" class="edit">Editar datos personales</a>
+    </div>
+
+    <div>
+        <h2 class="title">Datos de su vehículo</h2>
+
+        <span>DNI: {{datailData.vehicle.mark}}</span>
+        <span>Apellido: {{datailData.vehicle.date}}</span>
+        <span>Nombre: {{datailData.vehicle.model}}</span>
+        <span>Email: {{datailData.vehicle.version}}</span>
+        <span>Numero de Celular: {{datailData.vehicle.coverage}}</span>
+
+        <a routerLink="/formVehicle" class="edit">Editar datos de su vehículo</a>
+    </div>
+
+    <button class="btn-margin" mat-raised-button color="primary" routerLink="/" (click)="clear()">Enviar</button>
+</div>

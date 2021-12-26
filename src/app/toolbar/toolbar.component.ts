@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RootDataService } from '../services/root-data.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private rootDataService: RootDataService,
+  ) { }
 
   ngOnInit(): void {
   }
 
+  clear(): void {
+    this.rootDataService.clear();
+  }
 }

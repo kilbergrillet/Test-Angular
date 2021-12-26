@@ -1,1 +1,53 @@
-<p>form-vehicle works!</p>
+<form [formGroup]="userVehicle" class="block-form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Marca</mat-label>
+        <input type="text" formControlName="mark" (input)="autocomplete($event,'mark')" matInput>
+        <div *ngIf="windowsMark" class="auto-complete-custom">
+            <span *ngFor="let option of listMark" (click)="optionMark(option)">
+                {{option.desc}}
+            </span>
+        </div>
+        <mat-hint *ngIf="formValidation('provinces')">Campo obligatorio</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Año</mat-label>
+        <input formControlName="date" (input)="selectDate($event)" matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker (closed)="selectDate($event)" #picker></mat-datepicker>
+        <mat-hint *ngIf="formValidation('date')">Debes estar en el rango de los ultimos 20 años</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Modelo</mat-label>
+        <input type="text" formControlName="model" (input)="autocomplete($event,'model')" matInput>
+        <div *ngIf="windowsModel" class="auto-complete-custom">
+            <span *ngFor="let option of listModel" (click)="optionModel(option)">
+                {{option}}
+            </span>
+        </div>
+        <mat-hint *ngIf="formValidation('provinces')">Campo obligatorio</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Versión</mat-label>
+        <input formControlName="version" matInput placeholder="Placeholder">
+        <mat-hint *ngIf="formValidation('version')">Debe ingresar una version</mat-hint>
+    </mat-form-field>
+
+    <div *ngIf="switchCoverage" class="block-Coverage">
+        <div *ngFor="let option of listCoverage">
+            <div (click)="sendCoverage(option)"><span class="elemnt-weight">Coberturas:</span> {{option.texto}}</div>
+            <div><span class="elemnt-weight">Descripcion:</span> {{option.descripcion}}</div>
+        </div>
+    </div>
+    
+    <div *ngIf="switchCoverage">
+        <span class="info-coverage" *ngIf="switchCoverageInfo">Debe seleccionar una coberturas</span>
+    </div>
+
+    <div>
+        <button mat-raised-button color="primary" type="submit">Siguiente</button>
+    </div>
+</form>

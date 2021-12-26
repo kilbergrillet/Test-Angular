@@ -18,13 +18,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { FormVehicleComponent } from './form-vehicle/form-vehicle.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormUserComponent,
     ToolbarComponent,
-    FormVehicleComponent
+    FormVehicleComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,

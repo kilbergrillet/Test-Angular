@@ -13,4 +13,17 @@ export class MercantilService {
     return this.http.get<any>('https://servicios.qamercantilandina.com.ar/api_mock_frontend/v1/usuarios?nombre=' + user);
   }
 
+  getMark(): Observable<any> {
+    return this.http.get<any>('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas');
+  }
+
+  getModel(id: number, date: number): Observable<any> {
+    return this.http.get<any>('https://servicios.qamercantilandina.com.ar/api/v1/vehiculos/marcas/' + id + '/' + date);
+  }
+
+  getCoverage(): Observable<any> {
+    return this.http.get<any>('  https://servicios.qamercantilandina.com.ar/api_mock_frontend/v1/coberturas');
+  }
+
+
 }
